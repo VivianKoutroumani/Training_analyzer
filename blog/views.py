@@ -4,15 +4,15 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.models import User
 from .models import Post
 
-def home(request):
+def overview(request):
 	context = {
 		"posts": Post.objects.all()
 	}
-	return render(request, "blog/home.html",context)
+	return render(request, "blog/overivew.html",context)
 
 class PostListView(ListView):
 	model = Post # What model to query to create list
-	template_name = 'blog/home.html' # <app>/<model>_<viewtype>.html -> thats where it looks for by default
+	template_name = 'blog/overview.html' # <app>/<model>_<viewtype>.html -> thats where it looks for by default
 	context_object_name = 'posts' # normally it would look after "object list" by default to loop over so we have to rename it
 	ordering = ['-date_posted'] # - goes from newest to oldest; without it goes from oldest to newest
 	paginate_by = 5
@@ -65,8 +65,11 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 		return False
 
 
-def about(request):
-	return render(request, "blog/about.html", {"title": "About"})
+def trainingAnalysis(request):
+	return render(request, "blog/trainingAnalysis.html", {"title": "Training Analysis"})
+
+def personalBest(request):
+	return render(request, "blog/personalBest.html", {"title": "Personal Best"})
 
 
 
