@@ -14,9 +14,9 @@
 
 
     {%if title%}
-    	<title>Django Blog - {{title}}</title>
+    	<title>Training Analyzer - {{title}}</title>
     {%else%}
-    	<title>Django Blog</title>
+    	<title>Training Analyzer</title>
     {%endif%}
        
 </head>
@@ -28,23 +28,27 @@
 	    <div class="container">
 
 
-	      <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Django Blog</a>
+	      <a class="navbar-brand mr-4" href="{% url 'blog-overview' %}">Training Analyzer</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
 	      </button>
 	      <div class="collapse navbar-collapse" id="navbarToggle">
 	        <div class="navbar-nav mr-auto">
 
-	          <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+	          <a class="nav-item nav-link" href="{% url 'blog-overview' %}">Overview</a>
 
-	          <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+	          <a class="nav-item nav-link" href="{% url 'blog-trainingAnalysis' %}">Training Analysis</a>
+
+	          <a class="nav-item nav-link" href="{% url 'blog-personalBest' %}">Personal Best</a>
+
+
 
 
 	        </div>
 	        <!-- Navbar Right Side -->
 	        <div class="navbar-nav">
 	        	{% if user.is_authenticated %}
-	        		<a class="nav-item nav-link" href="{%url 'post-create'%}">New Post</a>
+	        		<a class="nav-item nav-link" href="{%url 'post-create'%}">Add Workout</a>
 	        		<a class="nav-item nav-link" href="{%url 'profile'%}">Profile</a>
 	        		<a class="nav-item nav-link" href="{%url 'logout'%}">Logout</a>
 
