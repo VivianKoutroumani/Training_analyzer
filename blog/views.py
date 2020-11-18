@@ -3,12 +3,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from .models import Post
+import matplotlib.pyplot as plt, mpld3
 
 def overview(request):
 	context = {
 		"posts": Post.objects.all()
 	}
-	return render(request, "blog/overivew.html",context)
+	return render(request, "blog/overview.html",context)
 
 class PostListView(ListView):
 	model = Post # What model to query to create list
@@ -34,7 +35,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
 	model = Post
-	fields = ['title', 'content']
+	fields = ['title', 'content', 'date_posted', 'workout_time', 'workout_distance']
 
 	def form_valid(self,form):
 		form.instance.author = self.request.user
@@ -42,7 +43,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 	model = Post
-	fields = ['title', 'content']
+	fields = ['title', 'content', 'date_posted', 'workout_time', 'workout_distance']
 
 	def form_valid(self,form):
 		form.instance.author = self.request.user
@@ -69,6 +70,8 @@ def trainingAnalysis(request):
 	return render(request, "blog/trainingAnalysis.html", {"title": "Training Analysis"})
 
 def personalBest(request):
+
+
 	return render(request, "blog/personalBest.html", {"title": "Personal Best"})
 
 
