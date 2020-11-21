@@ -18,3 +18,11 @@ class Post(models.Model):
 	def get_absolute_url(self):
 		return reverse('post-detail', kwargs = {'pk': self.pk})
 
+class Country(models.Model):
+    name = models.CharField(max_length=30)
+
+class City(models.Model):
+    name = models.CharField(max_length=30)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    population = models.PositiveIntegerField()
+

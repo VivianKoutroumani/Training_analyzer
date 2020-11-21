@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
-from .models import Post
+from .models import Post, City
 import matplotlib.pyplot as plt, mpld3
 
 def overview(request):
@@ -67,7 +67,19 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 def trainingAnalysis(request):
-	return render(request, "blog/trainingAnalysis.html", {"title": "Training Analysis"})
+    labels = []
+    data = []
+
+    queryset = City.objects.order_by('-population')[:5]
+    for city in queryset:
+        labels.append(city.name)
+        data.append(city.population)
+
+    return render(request, "blog/trainingAnalysis.html", {
+    	'title': 'Training Analysis',
+        'labels': labels,
+        'data': data,
+    })
 
 def personalBest(request):
 
