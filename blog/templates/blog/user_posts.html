@@ -1,16 +1,16 @@
-{%extends "blog/base.html"%}
-	{%block content%}
-		<h1 class ="mb-3"> Post by {{ view.kwargs.username}} ({{ page_obj.paginator.count }})</h1>
-	    {% for post in posts%} <!-- place for post html and css -->
+{% extends "blog/base.html" %}
+	{% block content %}
+		<h1 class ="mb-3"> Workouts by {{ view.kwargs.username}} ({{ page_obj.paginator.count }})</h1>
+	    {% for workout in workouts %} <!-- place for post html and css -->
 	    	<article class="media content-section">
-	    		<img class="rounded-circle article-img" src="{{post.author.profile.image.url}}">
+	    		<img class="rounded-circle article-img" src="{{workout.athlete.profile.image.url}}">
 			  <div class="media-body">
 			    <div class="article-metadata">
-			      <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
-			      <small class="text-muted">{{ post.date_posted | date:"F d, Y" }}</small>
+			      <a class="mr-2" href="{% url 'user-posts' workout.athlete.username %}">{{ workout.athlete }}</a>
+			      <small class="text-muted">{{ workout.date | date:"F d, Y" }}</small>
 			    </div>
-			    <h2><a class="article-title" href="{% url 'post-detail' post.id%}">{{ post.title }}</a></h2>
-			    <p class="article-content">{{ post.content }}</p>
+			    <h2><a class="article-title" href="{% url 'workout-detail' workout.id%}">{{ workout.title }}</a></h2>
+			    <p class="article-content">{{ workout.description }}</p>
 			  </div>
 			</article>
 	    {% endfor %}

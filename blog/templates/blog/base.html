@@ -14,9 +14,9 @@
 
 
     {%if title%}
-    	<title>Training Analyzer - {{title}}</title>
+    	<title>FitHub - {{title}}</title>
     {%else%}
-    	<title>Training Analyzer</title>
+    	<title>FitHub</title>
     {%endif%}
        
 </head>
@@ -28,18 +28,16 @@
 	    <div class="container">
 
 
-	      <a class="navbar-brand mr-4" href="{% url 'blog-overview' %}">Training Analyzer</a>
+	      <a class="navbar-brand mr-4" href="{% url 'blog-overview' %}">FitHub</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
 	      </button>
 	      <div class="collapse navbar-collapse" id="navbarToggle">
 	        <div class="navbar-nav mr-auto">
 
-	          <a class="nav-item nav-link" href="{% url 'blog-overview' %}">Overview</a>
+	          <a class="nav-item nav-link" href="{% url 'blog-analysis' %}">Workout Analysis</a>
 
-	          <a class="nav-item nav-link" href="{% url 'blog-trainingAnalysis' %}">Training Analysis</a>
-
-	          <a class="nav-item nav-link" href="{% url 'blog-personalBest' %}">Personal Best</a>
+	          <a class="nav-item nav-link" href="{% url 'blog-bests' %}">Personal Bests</a>
 
 
 

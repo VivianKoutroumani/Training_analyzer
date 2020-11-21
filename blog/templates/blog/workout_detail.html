@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+	{% block content %}
+	    	<article class="media content-section">
+	    		<img class="rounded-circle article-img" src="{{workout.athlete.profile.image.url}}">
+			  <div class="media-body">
+			    <div class="article-metadata">
+			      <a class="mr-2" href="{% url 'user-posts' workout.athlete.username %}">{{ workout.author }}</a>
+			      <small class="text-muted">{{ workout.date | date:"F d, Y" }}</small>
+			      {% if workout.athlete == user%}
+				      <div>
+				      	<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' workout.id%}"> Update </a>
+				      	<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' workout.id%}"> Delete </a>
+				      </div>
+			      {%endif%}
+			    </div>
+			    <h2 class="article-title">{{ workout.title }}</h2> <!--default looks for object-->
+			    <p class="article-content">{{ workout.description }}</p>
+                <p class="article-content"> Start Time: {{ workout.start_time }}</p>
+                <p class="article-content"> End Time: {{ workout.end_time }}</p>
+                <p class="article-content"> Sport: {{ workout.sport }}</p>
+                <p class="article-content"> Type: {{ workout.type }}</p>
+                <p class="article-content"> Distance: {{ workout.distance }} kilometers</p>
+                <p class="article-content"> Intensity: {{ workout.workout_intensity }}</p>
+			  </div>
+			</article>
+	{%endblock content%}
+
