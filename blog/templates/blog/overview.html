@@ -6,7 +6,7 @@
 			  <div class="media-body">
 			    <div class="article-metadata">
 			      <a class="mr-2" href="{% url 'user-posts' workout.athlete.username %}">{{ workout.athlete }}</a>
-			      <small class="text-muted">{{ workout.date | date:"F d, Y" }}</small>
+			      <small class="text-muted">{{ workout.date | date:"F j, Y" }}</small>
 			    </div>
 			    <h2><a class="article-title" href="{% url 'workout-detail' workout.id%}">{{ workout.title }}</a></h2>
 			    <p class="article-content">{{ workout.description }}</p>

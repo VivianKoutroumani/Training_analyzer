@@ -15,8 +15,8 @@
 			    </div>
 			    <h2 class="article-title">{{ workout.title }}</h2> <!--default looks for object-->
 			    <p class="article-content">{{ workout.description }}</p>
-                <p class="article-content"> Start Time: {{ workout.start_time }}</p>
-                <p class="article-content"> End Time: {{ workout.end_time }}</p>
+                <p class="article-content"> Start Time: {{ workout.start_time | time:"g:i A" }}</p>
+                <p class="article-content"> End Time: {{ workout.end_time | time:"g:i A" }}</p>
                 <p class="article-content"> Sport: {{ workout.sport }}</p>
                 <p class="article-content"> Type: {{ workout.type }}</p>
                 <p class="article-content"> Distance: {{ workout.distance }} kilometers</p>
