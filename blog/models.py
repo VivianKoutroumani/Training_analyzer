@@ -21,15 +21,6 @@ class Post(models.Model):
         return self.title
 
 
-class Country(models.Model):
-    name = models.CharField(max_length=30)
-
-
-class City(models.Model):
-    name = models.CharField(max_length=30)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    population = models.PositiveIntegerField()
-
 
 class Workout(models.Model):
     date = models.DateTimeField(default=timezone.now)
