@@ -5,7 +5,7 @@
 			  <div class="media-body">
 			    <div class="article-metadata">
 			      <a class="mr-2" href="{% url 'user-posts' workout.athlete.username %}">{{ workout.author }}</a>
-			      <small class="text-muted">{{ workout.date | date:"F d, Y" }}</small>
+			      <small class="text-muted">{{ workout.date | date:"F j, Y" }}</small>
 			      {% if workout.athlete == user%}
 				      <div>
 				      	<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' workout.id%}"> Update </a>
