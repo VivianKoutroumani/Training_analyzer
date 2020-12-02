@@ -82,67 +82,66 @@ def analysis(request):
     speedid= []
     current_user=request.user
     queryset=Workout.objects.order_by('-date')
-    for workout in queryset:
+    for workout in queryset:#adding tha data
         if current_user==workout.athlete: 
             yAxisID.append(workout.distance)
             xAxisID.append(workout.date)
             time.append(workout.start_time)
             time2.append(workout.end_time)
-        
-    for i in range(len(yAxisID)):
-        yAxisID[i]=float(yAxisID[i])
-        time[i]=str(time[i])
-        time[i] = re.sub('\+00:00', '', time[i])
-        time2[i]=str(time2[i])
-        time2[i] = re.sub('\+00:00', '', time2[i])   
-        time[i]=datetime.strptime(time[i],"%Y-%m-%d %H:%M:%S")
-        time2[i]=datetime.strptime(time2[i],"%Y-%m-%d %H:%M:%S")
-        
-    for i in range(len(time2)):
-        time3.append(time2[i]-time[i])
+    if yAxisID:
+        for i in range(len(yAxisID)):
+            yAxisID[i]=float(yAxisID[i])#float the kilometres
+            time[i]=str(time[i])
+            time[i] = re.sub('\+00:00', '', time[i])#regular expressions 
+            time2[i]=str(time2[i])
+            time2[i] = re.sub('\+00:00', '', time2[i])   
+            time[i]=datetime.strptime(time[i],"%Y-%m-%d %H:%M:%S")
+            time2[i]=datetime.strptime(time2[i],"%Y-%m-%d %H:%M:%S")
+            
+        for i in range(len(time2)):#duration, this way endtime cannot be earlier than starttime
+            time3.append(time2[i]-time[i])
 
-    for i in range(len(time3)):
-        time3[i]=float(time3[i].total_seconds()/60)
-           
-    for i in range(len(xAxisID)):
-        xAxisID[i]=str(xAxisID[i])
-        xAxisID[i]=xAxisID[i].split(' ')[0]
-    i=1
-   # print("test2")
-    #if len(xAxisID)>1:
-    #   
-    while i!=len(xAxisID):
-        if xAxisID[i]==xAxisID[i-1]:
-            print("test")
-            yAxisID[i-1]=yAxisID[i]+yAxisID[i-1]
-            time3[i-1]=time3[i]+time3[i-1]
-            xAxisID.pop(i)
-            yAxisID.pop(i)
-            time3.pop(i)
-            i=i-1
-        i=i+1
-    if len(yAxisID) > 7:
-        for x in range(len(yAxisID)):
-            if len(yAxisID) > 7:
-                 xAxisID.pop(-1)
-                 yAxisID.pop(-1)
-                 time3.pop(-1)
-    for i in range(len(time3)):
-        speedid.append((yAxisID[i]/time3[i]))
-    for i in range(len(speedid)):
-        speedid[i]=str(round(speedid[i], 2))
+        for i in range(len(time3)):
+            time3[i]=float(time3[i].total_seconds()/60)
+            
+        for i in range(len(xAxisID)):
+            xAxisID[i]=str(xAxisID[i])
+            xAxisID[i]=xAxisID[i].split(' ')[0]
+        i=1
+        while i!=len(xAxisID):#doing this in case we have 2 workouts in the same date, they are added
+            if xAxisID[i]==xAxisID[i-1]:
+                yAxisID[i-1]=yAxisID[i]+yAxisID[i-1]
+                time3[i-1]=time3[i]+time3[i-1]
+                xAxisID.pop(i)
+                yAxisID.pop(i)
+                time3.pop(i)
+                i=i-1
+            i=i+1
+        if len(yAxisID) > 7:#keep the last 7 days workout data
+            for x in range(len(yAxisID)):
+                if len(yAxisID) > 7:
+                    xAxisID.pop(-1)
+                    yAxisID.pop(-1)
+                    time3.pop(-1)
+        for i in range(len(time3)):#calculate the speed of the workout
+            speedid.append((yAxisID[i]/time3[i]))
+        for i in range(len(speedid)):
+            speedid[i]=str(round(speedid[i], 2))
 
 
-    return render(request, "blog/analysis.html", {
-        'title': 'Workout Analysis',
-        'labels': xAxisID,
-        'data': yAxisID,
-        'speed' : speedid,
-    })
-  #queryset = Workout.objects.order_by('-date')[]
-    #for Workout in queryset:
-      #  labels.append(Workout.date)
-       # data.append(city.population)
+        return render(request, "blog/analysis.html", {
+            'title': 'Workout Analysis',
+            'labels': xAxisID,
+            'data': yAxisID,
+            'speed' : speedid,
+            'error' : False
+        })
+    else:
+        return render(request, "blog/analysis.html", {#return what we need for the graphs in analysis.html
+                'title': 'Workout Analysis',
+                'error' : True
+            })
+  
 
     
  
