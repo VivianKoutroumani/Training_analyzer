@@ -4,7 +4,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.models import User
 from .models import Post, Workout
 from datetime import datetime
-import matplotlib.pyplot as plt, mpld3
 import re
 
 
