@@ -3,11 +3,13 @@
 {% if user.is_authenticated %}
   {% if error is False %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<h1>Workout Analysis</h1>
+		
 		<h1>{{user}} this is your Workout Analysis</h1>
+    <h2>Workout distance of last 7 days</h2>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 		<canvas id="days7" width="1000" height="700"></canvas>
     <br>
+    <h2>Speed per workout (minutes per kilometer)</h2>
     <canvas id="speed" width="1000" height="700"></canvas>
 		<script>
 		var ctx = document.getElementById("days7");
@@ -80,6 +82,8 @@
       }
     });
     </script>
+
+
     <script>
             var ctx = document.getElementById("speed");
       var speed = new Chart(ctx, {
