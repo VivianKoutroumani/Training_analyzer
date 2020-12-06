@@ -4,17 +4,17 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 def register(request):
-	if request.method == 'POST':
-		form = UserRegisterForm(request.POST)
+	if request.method == 'POST':#When button "Join Today" in "register.HTML" is clicked, create an instance that contains the posts data
+		form = UserRegisterForm(request.POST) #Calling UserRegisterForm provided by Django
 		if form.is_valid():
 			form.save()
 			username = form.cleaned_data.get('username')
-			messages.success(request, f'Your account has been created! You are now able to log in')
+			messages.success(request, f'Your account has been created! You are now able to log in')#Flash message that only shows up briefly
 			return redirect('login')
 
 	else:
 		form = UserRegisterForm()
-	return render(request,'users/register.html', {'form': form})
+	return render(request,'users/register.html', {'form': form}) # "Form" is creating the dictionary that contains the form
 
 @login_required
 

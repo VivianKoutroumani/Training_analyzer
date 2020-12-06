@@ -7,12 +7,13 @@ from datetime import datetime
 import re
 
 
-def overview(request):
+def overview(request): #function that handles the traffic from the homepage
     context = {
         "workouts": Workout.objects.all()
     }
-    return render(request, "blog/overview.html", context)
+    return render(request, "blog/overview.html", context) #context allows reference in HTML-files
 
+#CUsing generic class-based views to create, update & delete Posts
 
 class PostListView(ListView):
     model = Workout  # What model to query to create list
@@ -52,7 +53,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.athlete = self.request.user
-        return super().form_valid(form)
+        return super().form_valid(form)  #validates form again (needs to be overridden since we changed form instance)
 
     def test_func(self):
         workout = self.get_object()

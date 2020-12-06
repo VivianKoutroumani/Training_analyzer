@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
+#File for defining our tables that collects data for each user
 
 class Workout(models.Model):
     date = models.DateTimeField(default=timezone.now)
@@ -12,7 +13,6 @@ class Workout(models.Model):
     end_time = models.DateTimeField(default=timezone.now)
     title = models.CharField(max_length=75)
     description = models.TextField()
-
     class SportChoices(models.TextChoices):
         CYCLING = 'Cycling', _('Cycling')
         HIKING = 'Hiking', _('Hiking')
@@ -58,7 +58,9 @@ class Workout(models.Model):
         blank=False
     )
 
-    athlete = models.ForeignKey(User, on_delete=models.CASCADE)
+    #User is a sepererate table, therefore the user model must be imported
+
+    athlete = models.ForeignKey(User, on_delete=models.CASCADE) #when user is deleted, deletes all respective posts
 
     def activity_duration(self):
         duration = datetime.combine(date.min, self.end_time) - datetime.combine(date.min, self.start_time)

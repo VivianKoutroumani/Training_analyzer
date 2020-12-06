@@ -9,6 +9,7 @@ from .views import (
 	)
 from . import views
 
+#mapping of urls to each view function
 urlpatterns = [
 	path("",PostListView.as_view(), name="blog-overview"), ## .as_view converts in actual view
 	path("user/<str:username>",UserPostListView.as_view(), name="user-posts"),

@@ -1,7 +1,9 @@
-from django.db.models.signals import post_save
-from django.contrib.auth.models import User
-from django.dispatch import receiver
-from .models import Profile
+from django.db.models.signals import post_save #signal that gets fired when object is saved
+from django.contrib.auth.models import User #sender of signal
+from django.dispatch import receiver # receiver of signal
+from .models import Profile 
+
+#Creating profile when user is created
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):

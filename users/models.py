@@ -10,7 +10,7 @@ class Profile(models.Model):
 		return f'{self.user.username} Profile'
 
 	def save(self, *args, **kwargs): #change picture size when uplodaed
-		super(Profile, self).save(*args, **kwargs) # change of original program -> Solution found on stackOVerflow: https://stackoverflow.com/questions/52351756/django-typeerror-save-got-an-unexpected-keyword-argument-force-insert
+		super(Profile, self).save(*args, **kwargs)
 
 		img = Image.open(self.image.path)
 

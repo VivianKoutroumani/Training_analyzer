@@ -26,7 +26,7 @@ is logged in. This is because it tells FitHub which user's data it should use to
     the user has covered in each of their past several workouts. It refers to the "days7" script below to fetch
     the graph element. Within the script, we specify which type of graph we want, what the label should be, which data
     to use, and what colors to use as well as how the axes should be specified. -->
-    <h3>Here's how much distance you've covered during each of your past few workouts:</h3>
+    <h3>Here's how much distance (in km) you've covered during each of your past few workouts:</h3>
     <br>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 		<canvas id="days7" width="1000" height="700"></canvas>
@@ -35,20 +35,21 @@ is logged in. This is because it tells FitHub which user's data it should use to
     <!-- The following section of code displays the second graph. That is to say the one which computes and displays
     the user's average speed in each of their past several workouts. It refers to the "speed" script below to fetch
     the graph element. -->
-    <h3>Here was your average speed per workout:</h3>
+    <h3>Here was your average speed per workout (min/km):</h3>
     <br>
     <canvas id="speed" width="1000" height="700"></canvas>
     <br>
     <br> <!-- This is where the webpage actually ends, at least as far as the user is concerned. -->
 
       <script>
+    Chart.defaults.global.legend.display = false;
 		var ctx = document.getElementById("days7");
 		var days7 = new Chart(ctx, {
             type: 'bar',
                 data: {
                     labels: {{ labels|safe }},
                     datasets: [{
-                        label: 'Distance (km)',
+                        
                         data: {{ data|safe }},
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -82,6 +83,7 @@ is logged in. This is because it tells FitHub which user's data it should use to
                     }]
                 },
                 options: {
+
                     responsive: false,
                         scales: {
                             xAxes: [{
@@ -110,7 +112,7 @@ is logged in. This is because it tells FitHub which user's data it should use to
                    data: {
                         labels: {{ labels|safe }},
                         datasets: [{
-                            label: 'Average Speed (km/h)',
+                           
                             data: {{ speed|safe }},
                             backgroundColor: [
                               'rgba(255, 99, 132, 0.2)',
