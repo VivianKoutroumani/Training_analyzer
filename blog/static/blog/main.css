@@ -1,3 +1,10 @@
+/*
+This CSS file specifies all the design elements of FitHub. That is to say it lists the colors of certain elements like
+text, backgrounds, boxes, etc. We won't comment the specific design element each of the following code sections
+modify as their name is rather self-explanatory. The section ".site-header .navbar-nav .nav-link" specifies the color
+of the site header, the navigation bar, and navigation links.
+*/
+
 body {
   background: #fafafa;
   color: #333333;

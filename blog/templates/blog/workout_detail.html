@@ -1,27 +1,47 @@
+<!--
+This view displays all the information associated with a particular workout. If the user is viewing one of their own
+activities, it also gives them the opportunity to update the information presented.
+-->
+
 {% extends "blog/base.html" %}
-	{% block content %}
-	    	<article class="media content-section">
-	    		<img class="rounded-circle article-img" src="{{workout.athlete.profile.image.url}}">
-			  <div class="media-body">
-			    <div class="article-metadata">
-			      <a class="mr-2" href="{% url 'user-posts' workout.athlete.username %}">{{ workout.author }}</a>
-			      <small class="text-muted">{{ workout.date | date:"F j, Y" }}</small>
-			      {% if workout.athlete == user%}
-				      <div>
-				      	<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' workout.id%}"> Update </a>
-				      	<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' workout.id%}"> Delete </a>
-				      </div>
-			      {%endif%}
-			    </div>
-			    <h2 class="article-title">{{ workout.title }}</h2> <!--default looks for object-->
-			    <p class="article-content">{{ workout.description }}</p>
-                <p class="article-content"> Start Time: {{ workout.start_time | time:"g:i A" }}</p>
-                <p class="article-content"> End Time: {{ workout.end_time | time:"g:i A" }}</p>
-                <p class="article-content"> Sport: {{ workout.sport }}</p>
-                <p class="article-content"> Type: {{ workout.type }}</p>
-                <p class="article-content"> Distance: {{ workout.distance }} kilometers</p>
-                <p class="article-content"> Intensity: {{ workout.workout_intensity }}</p>
-			  </div>
-			</article>
+     {% block content %}
+           <article class="media content-section">
+
+                 <!-- Displays the profile picture of the user that is associated with the workout. -->
+	    		 <img class="rounded-circle article-img" src="{{workout.athlete.profile.image.url}}">
+			     <div class="media-body">
+                     <div class="article-metadata">
+
+                         <!-- Displays the username of the athlete associated with the workout. This code also creates
+                         a hyperlink on which the user can click to access a list of all the workouts only that athlete
+                         has entered on the site. -->
+                         <a class="mr-2" href="{% url 'user-posts' workout.athlete.username %}">{{ workout.author }}</a>
+
+                         <!-- Displays the date on which the workout was completed. -->
+                         <small class="text-muted">{{ workout.date | date:"F j, Y" }}</small>
+
+                         <!-- If the user is viewing one of their own workouts, FitHub gives them the opportunity to
+                         either update or delete the information associated with the workout. -->
+                         {% if workout.athlete == user%}
+                              <div>
+                                   <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' workout.id%}"> Update </a>
+				      	           <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' workout.id%}"> Delete </a>
+                              </div>
+			             {%endif%}
+			         </div>
+
+                     <!-- Displays all the information associated with the workout. Some aspects of what's displayed
+                     are hardcoded because what's displayed is always a specific kind of data (e.g. time, distance,
+                     sport, type, etc.). -->
+			         <h2 class="article-title">{{ workout.title }}</h2> <!--default looks for object-->
+                     <p class="article-content">{{ workout.description }}</p>
+                     <p class="article-content"> Start Time: {{ workout.start_time | time:"g:i A" }}</p>
+                     <p class="article-content"> End Time: {{ workout.end_time | time:"g:i A" }}</p>
+                     <p class="article-content"> Sport: {{ workout.sport }}</p>
+                     <p class="article-content"> Type: {{ workout.type }}</p>
+                     <p class="article-content"> Distance: {{ workout.distance }} kilometers</p>
+                     <p class="article-content"> Intensity: {{ workout.workout_intensity }}</p>
+			     </div>
+           </article>
 	{%endblock content%}
 

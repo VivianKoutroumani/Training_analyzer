@@ -1,93 +1,97 @@
-{%load static%}
+<!--
+As its name implies, this HTML file specifies the base or foundation of FitHub from which all the other templates are
+extended. Essentially, it consists of what appears on the tab in the user's web browser and on FitHub's navigation bar.
+It also includes references the files which contain the design-related information for these elements (e.g. main.css).
+-->
+
+{% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
 
-	   <!-- Required meta tags -->
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <!-- Refers to the design specifications listed in the "main.css" folder. This folder is nested inside the "static"
+    folder.-->
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
 
-
-    {%if title%}
+    <!-- This if-else section specifies the text that is displayed on tab of the user's internet browser that displays
+    FitHub. If the user has navigated to a section of FitHub (not just the home page), that information is displayed
+    as well. -->
+    {% if title %}
     	<title>FitHub - {{title}}</title>
-    {%else%}
+    {% else %}
     	<title>FitHub</title>
-    {%endif%}
-       
+    {% endif %}
 </head>
+
 <body>
 	<header class="site-header">
-		<!-- navigation bar html-->
 
+      <!-- The following code specifies the parameters we decided to use for FitHub's navigation bar. By navigation bar,
+      we mean the row of text at the top of the site that allows users to travel from page to page within the site. -->
 	  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-	    <div class="container">
+          <div class="container">
 
+              <!-- Creates the button for the site's home page. This button persists regardless of whether the user
+              has signed into the site. -->
+              <a class="navbar-brand mr-4" href="{% url 'blog-overview' %}">FitHub</a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+	              </button>
+	              <div class="collapse navbar-collapse" id="navbarToggle">
+	                  <div class="navbar-nav mr-auto">
 
-	      <a class="navbar-brand mr-4" href="{% url 'blog-overview' %}">FitHub</a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-	      <span class="navbar-toggler-icon"></span>
-	      </button>
-	      <div class="collapse navbar-collapse" id="navbarToggle">
-	        <div class="navbar-nav mr-auto">
-			{% if user.is_authenticated %}
-	          <a class="nav-item nav-link" href="{% url 'blog-analysis' %}">Workout Analysis</a>
+                          <!-- If the user has signed into the site, the "Workout Analysis" tab appears in the
+                          navigation bar. -->
+                          {% if user.is_authenticated %}
+                               <a class="nav-item nav-link" href="{% url 'blog-analysis' %}">Workout Analysis</a>
+                          {% endif %}
+                      </div>
 
-			  
-			{% endif %}
+                      <!-- Specifies the buttons that appear on the right side of the navigation bar. -->
+                      <div class="navbar-nav">
 
+                          <!-- These buttons only appear if the user has signed in. -->
+	        	          {% if user.is_authenticated %}
+                               <a class="nav-item nav-link" href="{% url 'post-create' %}">Add Workout</a>
+	        		           <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                               <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
 
-
-
-	        </div>
-	        <!-- Navbar Right Side -->
-	        <div class="navbar-nav">
-	        	{% if user.is_authenticated %}
-	        		<a class="nav-item nav-link" href="{%url 'post-create'%}">Add Workout</a>
-	        		<a class="nav-item nav-link" href="{%url 'profile'%}">Profile</a>
-	        		<a class="nav-item nav-link" href="{%url 'logout'%}">Logout</a>
-
-	        	{%else%}
-
-		        	<a class="nav-item nav-link" href="{%url 'login'%}">Login</a>
-		       		<a class="nav-item nav-link" href="{%url 'register'%}">Register</a>
-
-	          {%endif%}
-	        </div>
-	      </div>
-	    </div>
+                          <!-- These buttons appear if the user has not signed into the site. -->
+                          {% else %}
+                               <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                               <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                          {% endif %}
+	                  </div>
+                  </div>
+          </div>
 	  </nav>
 	</header>
 
 	<main role="main" class="container">
-	  <div class="row">
-	    <div class="col-md-8">
-
-	    	{% if messages %}
-	    		{% for message in messages %}
-	    			<div class = "alert alter-{{message.tags}}">
-	    				{{message}}
-
-	    			</div>
-	    				
-	    		{%endfor%}
-	    	{% endif %}
-	      {% block content %}{% endblock %}
-	    </div>
-	    
-	  </div>
+	    <div class="row">
+            <div class="col-md-8">
+                {% if messages %}
+	    		    {% for message in messages %}
+	    			    <div class = "alert alter-{{message.tags}}">
+	    				    {{message}}
+                        </div>
+                    {% endfor %}
+	    	    {% endif %}
+	            {% block content %}{% endblock %}
+	        </div>
+        </div>
 	</main>
-	
-   
 
-
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Optional JavaScript, some of which was used to facilitate the graphs on the "Workout Analysis" tab. -->
+    <!-- Organization: jQuery -> Popper.js -> Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

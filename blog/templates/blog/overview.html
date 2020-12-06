@@ -1,41 +1,68 @@
+<!--
+This "overview" template is essentially FitHub's homepage. It specifies what they user sees when they click on "FitHub"
+in the upper left-hand corner of the site. It lists all the workouts that all the users have entered on the site.
+Unlike other parts of FitHub, it can be viewed regardless of whether you are signed in.
+-->
+
 {% extends "blog/base.html" %}
 	{% block content %}
-	    {% for workout in workouts %} <!-- place for post html and css -->
-	    	<article class="media content-section">
-	    		<img class="rounded-circle article-img" src="{{workout.athlete.profile.image.url}}">
-			  <div class="media-body">
-			    <div class="article-metadata">
-			      <a class="mr-2" href="{% url 'user-posts' workout.athlete.username %}">{{ workout.athlete }}</a>
-			      <small class="text-muted">{{ workout.date | date:"F j, Y" }}</small>
-			    </div>
-			    <h2><a class="article-title" href="{% url 'workout-detail' workout.id%}">{{ workout.title }}</a></h2>
-			    <p class="article-content">{{ workout.description }}</p>
-			    <p class="article-content">{{ workout.distance }} Kilometer</p>
-			    <p class="article-content">{{ workout.start_time | time:"g:i A" }} </p>
-			    <p class="article-content">{{ workout.end_time | time:"g:i A"  }}</p>
-			  </div>
-			</article>
+
+        <!-- The following section of code displays all the workouts that users have entered on the platform. Unlike
+        other parts of FitHub, this part is the same for everyone. That is to say one does not have to be signed in to
+        view this part of the site. -->
+         {% for workout in workouts %}
+	    	  <article class="media content-section">
+
+                   <!-- Displays the profile picture of the user that is associated with the workout. -->
+                   <img class="rounded-circle article-img" src="{{workout.athlete.profile.image.url}}">
+			       <div class="media-body">
+			       <div class="article-metadata">
+
+                        <!-- Displays the username of the athlete associated with the workout. This code also creates
+                        a hyperlink on which the user can click to access a list of all the workouts only that athlete
+                        has entered on the site. -->
+                        <a class="mr-2" href="{% url 'user-posts' workout.athlete.username %}">{{ workout.athlete }}</a>
+
+                        <!-- Displays the date on which the workout was completed. -->
+			            <small class="text-muted">{{ workout.date | date:"F j, Y" }}</small>
+			       </div>
+
+                   <!-- Displays the title the user entered for the workout. This code also creates a hyperlink on
+                   which the user can click to access more specific information about that particular workout session
+                   like what type of workout it was and how difficult it was.-->
+			       <h2><a class="article-title" href="{% url 'workout-detail' workout.id%}">{{ workout.title }}</a></h2>
+
+                        <!-- Displays the description, distance, start time, and end time the user entered for the
+                        workout. Some aspects of what's displayed are hardcoded because what's displayed is always a
+                        specific kind of data (e.g. time, distance, etc.). -->
+                        <p class="article-content">{{ workout.description }}</p>
+                        <p class="article-content">{{ workout.distance }} km</p>
+                        <p class="article-content">Start: {{ workout.start_time | time:"g:i A" }} </p>
+                        <p class="article-content">End: {{ workout.end_time | time:"g:i A"  }}</p>
+			       </div>
+			 </article>
 	    {% endfor %}
 
-	     {% if is_paginated %}
+        <!-- The following "if" statement creates the page toggles which appear at the bottom of the overview page. -->
+        {% if is_paginated %}
 
-	      {% if page_obj.has_previous %}
-	        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-	        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-	      {% endif %}
-
-	      {% for num in page_obj.paginator.page_range %}
-	        {% if page_obj.number == num %}
-	          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-	        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-	          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+	        {% if page_obj.has_previous %}
+	             <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+	             <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
 	        {% endif %}
-	      {% endfor %}
 
-	      {% if page_obj.has_next %}
-	        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-	        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-	      {% endif %}
+	        {% for num in page_obj.paginator.page_range %}
+                 {% if page_obj.number == num %}
+	                   <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+	             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+	                   <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+	             {% endif %}
+	        {% endfor %}
+
+	        {% if page_obj.has_next %}
+	             <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+	             <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+	        {% endif %}
 
     	{% endif %}
 {% endblock content %}

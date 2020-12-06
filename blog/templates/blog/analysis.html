@@ -1,166 +1,183 @@
-{%extends "blog/base.html"%}
-{%block content%}
+<!--
+This template is what populates the "Workout Analysis" tab of FitHub with information. It takes the information
+provided by the user and analyzes it, outputting two different bar graphs of information. The first provides the user
+with an overview of the distance he or she has covered during each of their past few workouts. The second provides
+the user with their average speed during each of their past few workouts.
+-->
+
+{% extends "blog/base.html" %}
+
+<!-- Creates a block of content on "Workout Analysis" tab of FitHub. -->
+{% block content %}
+
+<!-- Ensures the user is logged into their account. If they aren't, FitHub prompts them to sign in (see end of script).
+If the user does not have an account, they can also create one from this page. It is critical that the site knows who
+is logged in. This is because it tells FitHub which user's data it should use to populate the graphs. -->
 {% if user.is_authenticated %}
+
   {% if error is False %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		
-		<h1>{{user}} this is your Workout Analysis</h1>
-    <h2>Workout distance of last 7 days</h2>
+
+    <!-- The following greeting changes dynamically according to which user is logged in to the site. -->
+    <h1>{{user}}, welcome to your workout analysis.</h1>
+    <br>
+
+    <!-- The following section of code displays the first graph. That is to say the one which aggregates the distance
+    the user has covered in each of their past several workouts. It refers to the "days7" script below to fetch
+    the graph element. Within the script, we specify which type of graph we want, what the label should be, which data
+    to use, and what colors to use as well as how the axes should be specified. -->
+    <h3>Here's how much distance you've covered during each of your past few workouts:</h3>
+    <br>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 		<canvas id="days7" width="1000" height="700"></canvas>
     <br>
-    <h2>Speed per workout (minutes per kilometer)</h2>
+
+    <!-- The following section of code displays the second graph. That is to say the one which computes and displays
+    the user's average speed in each of their past several workouts. It refers to the "speed" script below to fetch
+    the graph element. -->
+    <h3>Here was your average speed per workout:</h3>
+    <br>
     <canvas id="speed" width="1000" height="700"></canvas>
-		<script>
+    <br>
+    <br> <!-- This is where the webpage actually ends, at least as far as the user is concerned. -->
+
+      <script>
 		var ctx = document.getElementById("days7");
-    var days7 = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: {{ labels|safe }},
-        datasets: [{
-          label: ' Here is the distance (in kilometers) you run per workout the last 7 days',
-          data: {{ data|safe }},
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: false,
-        scales: {
-          xAxes: [{
-            ticks: {
-              maxRotation: 90,
-              minRotation: 80
-            },
-              gridLines: {
-              offsetGridLines: true // à rajouter
-            }
-          },
-          {
-            position: "top",
-            ticks: {
-              maxRotation: 90,
-              minRotation: 80
-            },
-            gridLines: {
-              offsetGridLines: true // et matcher pareil ici
-            }
-          }],
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
-    </script>
+		var days7 = new Chart(ctx, {
+            type: 'bar',
+                data: {
+                    labels: {{ labels|safe }},
+                    datasets: [{
+                        label: 'Distance (km)',
+                        data: {{ data|safe }},
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: false,
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    maxRotation: 90,
+                                    minRotation: 80
+                                },
+                                gridLines: {
+                                    offsetGridLines: true
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                }
+        });
+      </script>
 
-
-    <script>
-            var ctx = document.getElementById("speed");
-      var speed = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: {{ labels|safe }},
-          datasets: [{
-            label: ' Your speed per workout was..',
-            data: {{ speed|safe }},
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-              'rgba(255,99,132,1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-              'rgba(255,99,132,1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: false,
-          scales: {
-            xAxes: [{
-              ticks: {
-                maxRotation: 90,
-                minRotation: 80
-              },
-                gridLines: {
-                offsetGridLines: true // à rajouter
-              }
-            },
-            {
-              position: "top",
-              ticks: {
-                maxRotation: 90,
-                minRotation: 80
-              },
-              gridLines: {
-                offsetGridLines: true // et matcher pareil ici
-              }
-            }],
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
-          }
-        }
-      });
-    </script>
+      <script>
+          var ctx = document.getElementById("speed");
+          var speed = new Chart(ctx, {
+              type: 'bar',
+                   data: {
+                        labels: {{ labels|safe }},
+                        datasets: [{
+                            label: 'Average Speed (km/h)',
+                            data: {{ speed|safe }},
+                            backgroundColor: [
+                              'rgba(255, 99, 132, 0.2)',
+                              'rgba(54, 162, 235, 0.2)',
+                              'rgba(255, 206, 86, 0.2)',
+                              'rgba(75, 192, 192, 0.2)',
+                              'rgba(153, 102, 255, 0.2)',
+                              'rgba(255, 159, 64, 0.2)',
+                              'rgba(255, 99, 132, 0.2)',
+                              'rgba(54, 162, 235, 0.2)',
+                              'rgba(255, 206, 86, 0.2)',
+                              'rgba(75, 192, 192, 0.2)',
+                              'rgba(153, 102, 255, 0.2)',
+                              'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                              'rgba(255,99,132,1)',
+                              'rgba(54, 162, 235, 1)',
+                              'rgba(255, 206, 86, 1)',
+                              'rgba(75, 192, 192, 1)',
+                              'rgba(153, 102, 255, 1)',
+                              'rgba(255, 159, 64, 1)',
+                              'rgba(255,99,132,1)',
+                              'rgba(54, 162, 235, 1)',
+                              'rgba(255, 206, 86, 1)',
+                              'rgba(75, 192, 192, 1)',
+                              'rgba(153, 102, 255, 1)',
+                              'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                   },
+                    options: {
+                        responsive: false,
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    maxRotation: 90,
+                                    minRotation: 80
+                                },
+                                gridLines: {
+                                    offsetGridLines: true
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+          });
+      </script>
   {% else %}
-  <h1>No data. Please add <a href="/post/new">Workout</a> </h1> #
-  {% endif %}	
+
+      <!-- FitHub displays the message below to the user if there is no workout data associated with their account.
+      The message below asks them to provide the site with information. -->
+      <h1>No data is available. Add some here to start analyzing: <a href="/post/new">Workout</a> </h1>
+  {% endif %}
+
 {% else %}
-	<h1>This area is fore registered members only. Please <a href="/login/">Login</a></h1>
-{% endif %}	
+
+    <!-- This is the message FitHub displays to users if they are not logged into the site. It asks them kindly to
+    sign in if they wish to access the "Analysis" portion of the site. -->
+	<h1>This area is for registered members only. Sign in here: <a href="/login/">Login</a></h1>
+{% endif %}
+
 {%endblock content%}
 
 

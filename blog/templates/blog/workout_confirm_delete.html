@@ -1,18 +1,34 @@
+<!--
+A user will only see this view should they decide they want to delete a workout they had entered previously. This form
+gives them the option to, if they are certain, delete the workout or cancel the operation should they have second
+thoughts. In the latter case, FitHub returns the user to the "details" page associated with the workout they just
+tried to delete.
+-->
+
 {%extends "blog/base.html"%}
 	{%block content%}
-	    <div class="content-section">
-	    	<form method = "POST">
-	    		{% csrf_token %}
-	    		<fieldset class="form-group">
-	    			<legend class="border-bottom mb-4">Delete Workout</legend>
-	    			<h2> Are you sure you want to delete {{object.title}} ?</h2>
-	    		</fieldset>
-	    		<div class="form-group">
-	    				<button class="btn btn-outline-danger" type="submit">Yes, delete
-	    				</button>
-	    				<a class="btn btn-outline-secondary" href="{% url 'workout-detail' workout.id %}">No, cancel
-	    				</a>
-	    		</div>
-	    	</form>
-	    </div>
+	     <div class="content-section">
+	    	  <form method = "POST">
+	    		   {% csrf_token %}
+	    		        <fieldset class="form-group">
+
+                             <!-- This code appropriately titles the "Delete Workout" wizard. -->
+                             <legend class="border-bottom mb-4">Delete Workout</legend>
+
+                             <!-- This code ensures the user is aware of what they are about to do. It changes
+                             dynamically according to which workout the user might want to delete. -->
+                             <h5> Are you sure you want to delete "{{object.title}}"?</h5>
+	    		        </fieldset>
+	    		   <div class="form-group">
+
+                        <!-- This code defines the two buttons from which the user can chose should they navigate
+                        their way to the "Delete Workout" user. The first is the "delete" button, which, if selected,
+                        deletes the selected workout. The second, if selected, allows the user to escape the current
+                        operation and returns them back to the "details" page associated with the workout they just
+                        tried to delete. -->
+                        <button class="btn btn-outline-danger" type="submit">Yes, delete.</button>
+                        <a class="btn btn-outline-secondary" href="{% url 'workout-detail' workout.id %}">No, cancel.</a>
+	    		   </div>
+	    	  </form>
+	     </div>
 	{%endblock content%}

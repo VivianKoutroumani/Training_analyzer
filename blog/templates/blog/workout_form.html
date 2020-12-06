@@ -1,17 +1,30 @@
+<!--
+This view allows the user to add workout data to FitHub. The information users enter here gets saved in the "Workouts"
+table, which was created by making the migrations generated from the code in the models.py file.
+-->
+
 {% extends "blog/base.html" %}
-{% load crispy_forms_tags %}
-	{% block content %}
-	    <div class="content-section">
-	    	<form method = "POST">
-	    		{% csrf_token %}
-	    		<fieldset class="form-group">
-	    			<legend class="border-bottom mb-4">Add Workout</legend>
-	    			{{ form|crispy}}
-	    		</fieldset>
-	    		<div class="form-group">
-	    				<button class="btn btn-outline-info" type="submit">Post
-	    				</button>
-	    		</div>
-	    	</form>
-	    </div>
-	{%endblock content%}
+
+    <!-- This code imports a form template. -->
+    {% load crispy_forms_tags %}
+	    {% block content %}
+	        <div class="content-section">
+	    	    <form method = "POST">
+	    		    {% csrf_token %}
+	    		        <fieldset class="form-group">
+
+                            <!-- This code appropriately titles the "Add Workout" wizard. -->
+	    			        <legend class="border-bottom mb-4">Add Workout</legend>
+
+                            <!-- The code inserts the form template imported above into the code block. -->
+                            {{ form|crispy}}
+	    		        </fieldset>
+	    		        <div class="form-group">
+
+                            <!-- This code creates a button at the bottom of the page that the user can click to save
+                            the workout data they just entered. -->
+	    				    <button class="btn btn-outline-info" type="submit">Post</button>
+	    		        </div>
+                </form>
+	        </div>
+	    {%endblock content%}
