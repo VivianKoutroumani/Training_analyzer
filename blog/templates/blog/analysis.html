@@ -16,7 +16,7 @@
       data: {
         labels: {{ labels|safe }},
         datasets: [{
-          label: ' Last 7 days',
+          label: ' Here is the distance (in kilometers) you run per workout the last 7 days',
           data: {{ data|safe }},
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -152,7 +152,7 @@
       });
     </script>
   {% else %}
-  <h1>No data. Please add <a href="/post/new">Workout</a> </h1> 
+  <h1>No data. Please add <a href="/post/new">Workout</a> </h1> #
   {% endif %}	
 {% else %}
 	<h1>This area is fore registered members only. Please <a href="/login/">Login</a></h1>
