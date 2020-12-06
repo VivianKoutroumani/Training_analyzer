@@ -6,22 +6,6 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
 
-class Post(models.Model):
-    title = models.CharField(max_length=100)
-    content = models.TextField()
-    date_posted = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    workout_time = models.IntegerField(default=0)
-    workout_distance = models.IntegerField(default=0)
-
-    def get_absolute_url(self):
-        return reverse('workout-detail', kwargs={'pk': self.pk})
-
-    def __str__(self):
-        return self.title
-
-
-
 class Workout(models.Model):
     date = models.DateTimeField(default=timezone.now)
     start_time = models.DateTimeField(default=timezone.now)
@@ -79,6 +63,22 @@ class Workout(models.Model):
     def activity_duration(self):
         duration = datetime.combine(date.min, self.end_time) - datetime.combine(date.min, self.start_time)
         return duration
+
+    def get_absolute_url(self):
+        return reverse('workout-detail', kwargs={'pk': self.pk})
+
+    def __str__(self):
+        return self.title
+
+
+
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    date_posted = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    workout_time = models.IntegerField(default=0)
+    workout_distance = models.IntegerField(default=0)
 
     def get_absolute_url(self):
         return reverse('workout-detail', kwargs={'pk': self.pk})

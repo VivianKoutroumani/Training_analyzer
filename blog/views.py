@@ -123,7 +123,7 @@ def analysis(request):
                     yAxisID.pop(-1)
                     time3.pop(-1)
         for i in range(len(time3)):#calculate the speed of the workout
-            speedid.append((yAxisID[i]/time3[i]))
+            speedid.append((time3[i]/yAxisID[i]))
         for i in range(len(speedid)):
             speedid[i]=str(round(speedid[i], 2))
 

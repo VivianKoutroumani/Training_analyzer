@@ -11,6 +11,9 @@
 			    </div>
 			    <h2><a class="article-title" href="{% url 'workout-detail' workout.id%}">{{ workout.title }}</a></h2>
 			    <p class="article-content">{{ workout.description }}</p>
+			    <p class="article-content">{{ workout.distance }} Kilometer</p>
+			    <p class="article-content">{{ workout.start_time | time:"g:i A" }} </p>
+			    <p class="article-content">{{ workout.end_time | time:"g:i A"  }}</p>
 			  </div>
 			</article>
 	    {% endfor %}
