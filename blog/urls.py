@@ -9,11 +9,18 @@ from .views import (
 	)
 from . import views
 
-#mapping of urls to each view function
+
+# This file creates all the links which allow users to travel from page to page within the FitHub platform. In other
+# words, it maps URLs to each view function. What appears inside the double quotation marks after "path(" is what
+# appears in the URL that's displayed in the user's web browser when they are on any given page.
+
+
 urlpatterns = [
-	path("",PostListView.as_view(), name="blog-overview"), ## .as_view converts in actual view
+
+	# The ".as_view" suffix converts each link to the actual view, which is listed at the end of each line.
+	path("",PostListView.as_view(), name="blog-overview"),
 	path("user/<str:username>",UserPostListView.as_view(), name="user-posts"),
-	path("post/<int:pk>/",PostDetailView.as_view(), name="workout-detail"), # pk = primarykey
+	path("post/<int:pk>/",PostDetailView.as_view(), name="workout-detail"),  # "pk" means primary key.
 	path("post/new/",PostCreateView.as_view(), name="post-create"),
 	path("post/<int:pk>/update/",PostUpdateView.as_view(), name="post-update"),
 	path("post/<int:pk>/delete/",PostDeleteView.as_view(), name="post-delete"),
@@ -21,4 +28,3 @@ urlpatterns = [
 	path("bests/",views.bests, name="blog-bests"),
 ]
 
-# <app|/<model><viewtype>.html -> thats where it looks for

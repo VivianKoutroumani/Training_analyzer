@@ -41,7 +41,7 @@ is logged in. This is because it tells FitHub which user's data it should use to
     <br>
     <br> <!-- This is where the webpage actually ends, at least as far as the user is concerned. -->
 
-      <script>
+    <script>
     Chart.defaults.global.legend.display = false;
 		var ctx = document.getElementById("days7");
 		var days7 = new Chart(ctx, {
@@ -49,7 +49,6 @@ is logged in. This is because it tells FitHub which user's data it should use to
                 data: {
                     labels: {{ labels|safe }},
                     datasets: [{
-                        
                         data: {{ data|safe }},
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -83,7 +82,6 @@ is logged in. This is because it tells FitHub which user's data it should use to
                     }]
                 },
                 options: {
-
                     responsive: false,
                         scales: {
                             xAxes: [{
@@ -103,7 +101,7 @@ is logged in. This is because it tells FitHub which user's data it should use to
                         }
                 }
         });
-      </script>
+    </script>
 
       <script>
           var ctx = document.getElementById("speed");
@@ -112,7 +110,6 @@ is logged in. This is because it tells FitHub which user's data it should use to
                    data: {
                         labels: {{ labels|safe }},
                         datasets: [{
-                           
                             data: {{ speed|safe }},
                             backgroundColor: [
                               'rgba(255, 99, 132, 0.2)',
@@ -145,7 +142,7 @@ is logged in. This is because it tells FitHub which user's data it should use to
                             borderWidth: 1
                         }]
                    },
-                    options: {
+                   options: {
                         responsive: false,
                         scales: {
                             xAxes: [{
@@ -163,9 +160,10 @@ is logged in. This is because it tells FitHub which user's data it should use to
                                 }
                             }]
                         }
-                    }
+                   }
           });
       </script>
+
   {% else %}
 
       <!-- FitHub displays the message below to the user if there is no workout data associated with their account.
