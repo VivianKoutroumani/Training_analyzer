@@ -17,7 +17,7 @@ users.models.py file.
 	    		        <fieldset class="form-group">
 
                               <!-- This code appropriately titles the "Join Today" wizard. -->
-	    			          <legend class="border-bottom mb-4">Join Today</legend>
+	    			          <legend class="border-bottom mb-4">Welcome to FitHub</legend>
 
                               <!-- Executes all the elements of the form using the crispy format. -->
                               {{ form|crispy}}
@@ -25,13 +25,13 @@ users.models.py file.
 	    		        <div class="form-group">
 
                               <!-- Creates a "sign up" button at the bottom of the form. -->
-                              <button class="btn btn-outline-info" type="submit">Sign Up</button>
+                              <button class="btn btn-outline-info" type="submit">Sign up</button>
 	    		        </div>
 	    	  </form>
               <div class="border-top pt-3">
 
                    <!-- Creates a prompt which encourages the user to sign in if they already have an account. -->
-                   <small class="text-muted">Already have an Account?<a class="ml-2" href="{%url 'login'%}">Sign In</a></small>
+                   <small class="text-muted">Already have an account?<a class="ml-2" href="{%url 'login'%}">Sign in here.</a></small>
 	    	  </div>
 	     </div>
 	{%endblock content%}

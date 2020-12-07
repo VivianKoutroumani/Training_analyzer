@@ -30,23 +30,17 @@ Unlike other parts of FitHub, it can be viewed regardless of whether you are sig
                    <!-- Displays the title the user entered for the workout. This code also creates a hyperlink on
                    which the user can click to access more specific information about that particular workout session
                    like what type of workout it was and how difficult it was.-->
-			       <h2><a class="article-title" href="{% url 'workout-detail' workout.id%}">{{ workout.title }}</a></h2>
+			       <h3><a class="article-title" href="{% url 'workout-detail' workout.id%}">{{ workout.title }}</a></h3>
 
-                        <!-- Displays the description, distance, start time, and end time the user entered for the
-                        workout. Some aspects of what's displayed are hardcoded because what's displayed is always a
-                        specific kind of data (e.g. time, distance, etc.). -->
-                        <p class="article-content">{{ workout.description }}</p>
-                        <p class="article-content">{{ workout.distance }} km</p>
-                        <p class="article-content">Start: {{ workout.start_time | time:"g:i A" }} </p>
-                        <p class="article-content">End: {{ workout.end_time | time:"g:i A"  }}</p>
+                        <!-- Displays the description the user entered for the workout. -->
+                        <p class="article-content"> {{ workout.description }}</p>
 			       </div>
 			 </article>
 	    {% endfor %}
 
         <!-- The following "if" statement creates the page toggles which appear at the bottom of the overview page. -->
         {% if is_paginated %}
-
-	        {% if page_obj.has_previous %}
+            {% if page_obj.has_previous %}
 	             <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
 	             <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
 	        {% endif %}
@@ -63,7 +57,6 @@ Unlike other parts of FitHub, it can be viewed regardless of whether you are sig
 	             <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
 	             <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
 	        {% endif %}
-
-    	{% endif %}
+        {% endif %}
 {% endblock content %}
 

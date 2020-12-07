@@ -17,26 +17,24 @@ activities, it also gives them the opportunity to update the information present
                          has entered on the site. -->
                          <a class="mr-2" href="{% url 'user-posts' workout.athlete.username %}">{{ workout.author }}</a>
 
-                         <!-- Displays the date on which the workout was completed. -->
-                         <small class="text-muted">{{ workout.date | date:"F j, Y" }}</small>
-
                          <!-- If the user is viewing one of their own workouts, FitHub gives them the opportunity to
                          either update or delete the information associated with the workout. -->
-                         {% if workout.athlete == user%}
+                         {% if workout.athlete == user %}
                               <div>
-                                   <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' workout.id%}"> Update </a>
-				      	           <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' workout.id%}"> Delete </a>
+                                   <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' workout.id %}"> Update </a>
+				      	           <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' workout.id %}"> Delete </a>
                               </div>
 			             {%endif%}
 			         </div>
 
                      <!-- Displays all the information associated with the workout. Some aspects of what's displayed
                      are hardcoded because what's displayed is always a specific kind of data (e.g. time, distance,
-                     sport, type, etc.). -->
-			         <h2 class="article-title">{{ workout.title }}</h2> <!--default looks for object-->
-                     <p class="article-content">{{ workout.description }}</p>
-                     <p class="article-content"> Start Time: {{ workout.start_time | time:"g:i A" }}</p>
-                     <p class="article-content"> End Time: {{ workout.end_time | time:"g:i A" }}</p>
+                     sport, type, date, etc.). -->
+			         <h3 class="article-title">{{ workout.title }}</h3>
+                     <p class="article-content"> {{ workout.description }}</p>
+                     <p class="article-content"> Date: {{ workout.date | date:"F j, Y" }}</p>
+                     <p class="article-content"> Start time: {{ workout.start_time | time:"g:i A" }}</p>
+                     <p class="article-content"> End time: {{ workout.end_time | time:"g:i A" }}</p>
                      <p class="article-content"> Sport: {{ workout.sport }}</p>
                      <p class="article-content"> Type: {{ workout.type }}</p>
                      <p class="article-content"> Distance: {{ workout.distance }} kilometers</p>

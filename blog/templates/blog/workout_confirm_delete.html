@@ -17,7 +17,7 @@ tried to delete.
 
                              <!-- This code ensures the user is aware of what they are about to do. It changes
                              dynamically according to which workout the user might want to delete. -->
-                             <h5> Are you sure you want to delete "{{object.title}}"?</h5>
+                             <p> Are you sure you want to delete "{{object.title}}"?</p>
 	    		        </fieldset>
 	    		   <div class="form-group">
 
@@ -26,8 +26,8 @@ tried to delete.
                         deletes the selected workout. The second, if selected, allows the user to escape the current
                         operation and returns them back to the "details" page associated with the workout they just
                         tried to delete. -->
-                        <button class="btn btn-outline-danger" type="submit">Yes, delete.</button>
-                        <a class="btn btn-outline-secondary" href="{% url 'workout-detail' workout.id %}">No, cancel.</a>
+                        <button class="btn btn-outline-danger" type="submit">Yes, delete</button>
+                        <a class="btn btn-outline-secondary" href="{% url 'workout-detail' workout.id %}">No, cancel</a>
 	    		   </div>
 	    	  </form>
 	     </div>

@@ -9,7 +9,7 @@ can be accessed regardless of whether the user is signed in.
 
           <!-- Displays a specific user's username next to the total number of workouts they have entered on the
           site. -->
-		  <h1 class ="mb-3"> Workouts by {{ view.kwargs.username}} ({{ page_obj.paginator.count }})</h1>
+		  <h2 class ="mb-3">{{ view.kwargs.username}} has entered {{ page_obj.paginator.count }} workouts.</h2>
 
           <!-- The following section of code displays all the workouts that this specific user has entered on the
           platform. A user can access this view of the site if they are not logged in and for other athletes. -->
@@ -26,28 +26,22 @@ can be accessed regardless of whether the user is signed in.
                         <a class="mr-2" href="{% url 'user-posts' workout.athlete.username %}">{{ workout.athlete }}</a>
 
                         <!-- Displays the date on which the workout was completed. -->
-                        <small class="text-muted">{{ workout.date | date:"F d, Y" }}</small>
+                        <small class="text-muted">{{ workout.date | date:"F j, Y" }}</small>
                    </div>
 
                    <!-- Displays the title the user entered for the workout. This code also creates a hyperlink on
                    which the user can click to access more specific information about that particular workout session
                    like what type of workout it was and how difficult it was.-->
-                   <h2><a class="article-title" href="{% url 'workout-detail' workout.id%}">{{ workout.title }}</a></h2>
+                   <h3><a class="article-title" href="{% url 'workout-detail' workout.id %}">{{ workout.title }}</a></h3>
 
-                        <!-- Displays the description, distance, start time, and end time the user entered for the
-                        workout. Some aspects of what's displayed are hardcoded because what's displayed is always a
-                        specific kind of data (e.g. time, distance, etc.). -->
-                        <p class="article-content">{{ workout.description }}</p>
-                        <p class="article-content">{{ workout.distance }} km</p>
-                        <p class="article-content">Start: {{ workout.start_time | time:"g:i A" }} </p>
-                        <p class="article-content">End: {{ workout.end_time | time:"g:i A"  }}</p>
+                        <!-- Displays the description the user entered for the workout. -->
+                        <p class="article-content"> {{ workout.description }}</p>
                    </div>
 			   </article>
 	      {% endfor %}
 
           <!-- The following "if" statement creates the page toggles which appear at the bottom of the overview page. -->
 	      {% if is_paginated %}
-
               {% if page_obj.has_previous %}
                   <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
                   <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
@@ -65,6 +59,5 @@ can be accessed regardless of whether the user is signed in.
                   <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
 	              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
               {% endif %}
-
     	{% endif %}
 {% endblock content %}

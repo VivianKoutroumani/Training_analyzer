@@ -36,7 +36,7 @@ It also includes references the files which contain the design-related informati
 
       <!-- The following code specifies the parameters we decided to use for FitHub's navigation bar. By navigation bar,
       we mean the row of text at the top of the site that allows users to travel from page to page within the site. -->
-	  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+	  <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
           <div class="container">
 
               <!-- Creates the button for the site's home page. This button persists regardless of whether the user
@@ -62,11 +62,11 @@ It also includes references the files which contain the design-related informati
 	        	          {% if user.is_authenticated %}
                                <a class="nav-item nav-link" href="{% url 'post-create' %}">Add Workout</a>
 	        		           <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
-                               <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                               <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
 
                           <!-- These buttons appear if the user has not signed into the site. -->
                           {% else %}
-                               <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                               <a class="nav-item nav-link" href="{% url 'login' %}">Log In</a>
                                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
                           {% endif %}
 	                  </div>
