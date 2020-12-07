@@ -1,22 +1,37 @@
-{%extends "blog/base.html"%}
-{%load crispy_forms_tags%}
-	{%block content%}
-	    <div class="content-section">
-	    	<form method = "POST">
-	    		{% csrf_token %} <!-- security specific token-->
-	    		<fieldset class="form-group">
-	    			<legend class="border-bottom mb-4">Join Today</legend>
-	    			{{ form|crispy}} <!-- exectues all element of form in crispy format-->
-	    		</fieldset>
-	    		<div class="form-group">
-	    				<button class="btn btn-outline-info" type="submit">Sign Up
-	    				</button>
-	    		</div>
-	    	</form>
-	    	<div class="border-top pt-3">
-	    			<small class="text-muted">
-	    			Already have an Account? <a class="ml-2" href="{%url 'login'%}">Sign In</a>
-	    			</small>
-	    	</div>
-	    </div>
+<!--
+This view allows the user to register themselves with the FitHub platform. The information users enter here gets saved
+in the "Profile" table, which was created by making the migrations and the model generated from the code in the
+users.models.py file.
+-->
+
+{% extends "blog/base.html" %}
+
+<!-- This code imports a form template. -->
+{% load crispy_forms_tags %}
+	{% block content %}
+	     <div class="content-section">
+	    	  <form method = "POST">
+
+                   <!-- Denotes a security-specific token. -->
+	    		   {% csrf_token %}
+	    		        <fieldset class="form-group">
+
+                              <!-- This code appropriately titles the "Join Today" wizard. -->
+	    			          <legend class="border-bottom mb-4">Join Today</legend>
+
+                              <!-- Executes all the elements of the form using the crispy format. -->
+                              {{ form|crispy}}
+	    		        </fieldset>
+	    		        <div class="form-group">
+
+                              <!-- Creates a "sign up" button at the bottom of the form. -->
+                              <button class="btn btn-outline-info" type="submit">Sign Up</button>
+	    		        </div>
+	    	  </form>
+              <div class="border-top pt-3">
+
+                   <!-- Creates a prompt which encourages the user to sign in if they already have an account. -->
+                   <small class="text-muted">Already have an Account?<a class="ml-2" href="{%url 'login'%}">Sign In</a></small>
+	    	  </div>
+	     </div>
 	{%endblock content%}

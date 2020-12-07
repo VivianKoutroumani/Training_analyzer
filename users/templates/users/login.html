@@ -1,22 +1,33 @@
-{%extends "blog/base.html"%}
-{%load crispy_forms_tags%}
-	{%block content%}
-	    <div class="content-section">
-	    	<form method = "POST">
-	    		{% csrf_token %}
-	    		<fieldset class="form-group">
-	    			<legend class="border-bottom mb-4">Login</legend>
-	    			{{ form|crispy}}
-	    		</fieldset>
-	    		<div class="form-group">
-	    				<button class="btn btn-outline-info" type="submit">Login
-	    				</button>
-	    		</div>
-	    	</form>
-	    	<div class="border-top pt-3">
-	    			<small class="text-muted">
-	    			Need an Account? <a class="ml-2" href="{%url 'register'%}">Sign Up Now</a>
-	    			</small>
-	    	</div>
-	    </div>
-	{%endblock content%}
+<!--
+This view creates a simple login form, which is shown to the user when they want to log into their account on FitHub.
+-->
+
+{% extends "blog/base.html" %}
+
+<!-- This code imports a form template. -->
+{% load crispy_forms_tags %}
+	{% block content %}
+	     <div class="content-section">
+	    	  <form method = "POST">
+
+                  <!-- Denotes a security-specific token. -->
+                  {% csrf_token %}
+                   <fieldset class="form-group">
+
+                        <!-- Titles the login form. -->
+                        <legend class="border-bottom mb-4">Login</legend>
+	    			    {{ form|crispy}}
+	    		   </fieldset>
+	    		   <div class="form-group">
+
+                        <!-- Creates a "log in" button at the bottom of the form upon which the user can click. -->
+                        <button class="btn btn-outline-info" type="submit">Log in</button>
+	    		   </div>
+	    	  </form>
+              <div class="border-top pt-3">
+
+                   <!-- Guides the user to the registration page if they have yet to make in account on FitHub. -->
+                   <small class="text-muted">Don't have an account?<a class="ml-2" href="{%url 'register'%}">Make yours now!</a></small>
+	    	  </div>
+	     </div>
+	{% endblock content %}

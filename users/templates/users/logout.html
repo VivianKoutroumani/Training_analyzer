@@ -1,10 +1,15 @@
-{%extends "blog/base.html"%}
+<!--
+This view creates a simple confirmation window, which is shown to the user after they have logged out of FitHub.
+-->
+
+{% extends "blog/base.html" %}
 {% block content %}
-	<h2>You have been logged out</h2>
+
+    <!-- Displays a reassuring confirmation message. -->
+	<h2>You have been logged out.</h2>
 	<div class="border-top pt-3">
-	 	<small class="text-muted">
-	   		<a href="{%url 'login'%}">Login again </a>
-	  	</small>
+
+        <!-- Guides the user to the login form should they have accidentally logged out. -->
+	 	<small class="text-muted"><a href="{%url 'login'%}">Click here to log in again.</a></small>
 	</div>
-	  
 {% endblock content %}
