@@ -3,23 +3,28 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
-#Creating user forms & define updating settings
 
-class UserRegisterForm(UserCreationForm): 
-	email = forms.EmailField()
+# This file creates several user forms and defines update settings.
 
-	class Meta:
-		model = User
-		fields = ['username', 'email', 'password1', 'password2']#password2 is for password confirmation
 
-class UserUpdateForm(forms.ModelForm):   # form to update user model
-	email = forms.EmailField()#true by default
+class UserRegisterForm(UserCreationForm):
+    email = forms.EmailField()
 
-	class Meta:
-			model = User
-			fields = ['username', 'email']
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']  # password2 is used for password confirmation.
 
-class ProfileUpdateForm(forms.ModelForm): #allow updating the user's profile
-		class Meta:
-				model = Profile
-				fields = ['image']
+
+# Creates the form we use to update the "User" model.
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()  # True by default.
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
+class ProfileUpdateForm(forms.ModelForm):  # Allows the user to update their profile after having made it.
+    class Meta:
+        model = Profile
+        fields = ['image']

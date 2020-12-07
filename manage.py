@@ -1,7 +1,12 @@
-#!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
+"""
+Django's command-line utility for administrative tasks.
+"""
+
 import os
 import sys
+
+
+# Stored in !/usr/bin/env python. The user can access this file in the terminal in this way.
 
 
 def main():
